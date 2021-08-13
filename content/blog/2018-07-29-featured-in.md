@@ -1,6 +1,6 @@
 ---
-  title: Featured In
-  date: Sunday July 29th, 2018
+title: "#333 Featured In"
+date: Sunday July 29th, 2018
 ---
 
 Thanks to the following websites and newsletters for featuring Bael. If you have a blog using this theme, send me a DM on [Twitter](https://twitter.com/jasperketone) and I'll add you to this page too.
