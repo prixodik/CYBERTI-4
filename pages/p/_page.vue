@@ -1,5 +1,8 @@
 <template>
-  <component :is="getLayout" :posts="posts[$route.params.page - 1]"></component>
+  <component
+    :is="getLayout"
+    :posts="posts[$route.params.page - 1]"
+  ></component>
 </template>
 
 <script>
@@ -8,8 +11,7 @@ import FullGrid from "~/components/FullGrid";
 import _chunk from "lodash/chunk";
 
 export default {
-  async asyncData({ $content, params, error,store }) {
-    
+  async asyncData({ $content, params, error, store }) {
     const blogPosts = await $content("blog")
       .sortBy("createdAt", "desc")
       .only(["title", "path"])
@@ -18,13 +20,13 @@ export default {
         error({ statusCode: 404, message: "Page not found" });
       });
     const chunk = _chunk(blogPosts, 12);
-      store.commit("SET_PAGINATION", {
-        active: true,
-        page: params.page,
-        itemsOnPage: chunk[params.page - 1].length,
-        totalItems: blogPosts.length,
-        totalPages: chunk.length,
-      });
+    store.commit("SET_PAGINATION", {
+      active: true,
+      page: params.page,
+      itemsOnPage: chunk[params.page - 1].length,
+      totalItems: blogPosts.length,
+      totalPages: chunk.length,
+    });
     return {
       posts: chunk,
     };
@@ -38,17 +40,11 @@ export default {
   name: "Index",
   components: { BaelGrid, FullGrid },
   data() {
-    return {
-
-    };
+    return {};
   },
   methods: {
-getMore() {
-
-}
-
+    getMore() {},
   },
-
   computed: {
     getLayout() {
       return this.$store.state.info.altlayout ? "FullGrid" : "BaelGrid";

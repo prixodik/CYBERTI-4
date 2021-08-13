@@ -2,7 +2,7 @@
 	"name": "cyberti-4",
 	"version": "1.0.0",
 	"description": "A fashionable brutalist blog template using Netlify CMS and Nuxt.js",
-	"author": "jake101 <hello@jake101.com>",
+	"author": "prixodik <prixodik@gmail.com>",
 	"scripts": {
 		"dev": "nuxt",
 		"serve": "nuxt",
@@ -17,6 +17,7 @@
 		"@nuxt/content": "^1.8.1",
 		"@nuxtjs/axios": "^5.3.1",
 		"@nuxtjs/pwa": "^3.0.2",
+		"@nuxtjs/svg": "0.1.6",
 		"bf-solid": "^2.10.6",
 		"intersection-observer": "^0.11.0",
 		"lodash": "^4.17.20",
@@ -25,7 +26,13 @@
 		"nuxt": "^2.0.0",
 		"vue-lazyload": "^1.3.0",
 		"vue-moment": "^4.0.0",
-		"vue-smooth-reflow": "^0.1.12"
+		"vue-smooth-reflow": "^0.1.12",
+		"cssnano": "4.1.10",
+		"cssnano-preset-advanced": "4.0.7",
+		"imagemin-mozjpeg": "^8.0.0",
+		"imagemin-webpack-plugin": "^2.4.2",
+		"sass-loader": "^7.0.0",
+		"vue-svg-loader": "0.11.0"
 	},
 	"devDependencies": {
 		"@sendgrid/client": "^6.3.0",

@@ -23,23 +23,12 @@ module.exports = {
 
 		],
 		link: [
-			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-			{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700;800&display=swap' }
+			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+			//{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700;800&display=swap' }
 		]
 	},
-	scss: ["@/assets/helpers/variables.scss",
-		"@/assets/libs/normalize.scss",
-		"@/assets/helpers/functions.scss",
-
-		"@/assets/helpers/breakpoints.scss",
-		"@/assets/helpers/grid-framework.scss",
-		"@/assets/helpers/grid.scss",
-
-		"@/assets/helpers/mixin.scss",
-		"@/assets/partials/grid.scss",
-		"@/assets/partials/base.scss",
-		"@/assets/partials/titles.scss",
-		"@/assets/partials/buttons.scss"
+	css: [
+		"@/assets/scss/styles.scss"
 	],
 	// icon: {
 	//   iconSrc: `${siteInfo.siteicon}`

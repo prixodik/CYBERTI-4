@@ -16,10 +16,6 @@ body {
 	overflow-y: auto;
 	@include flex(space-between, stretch, stretch, nowrap, column);
 
-	&.checkout-page {
-		overflow: visible;
-	}
-
 	&.overflow {
 		overflow: hidden;
 		max-height: 100vh;
@@ -43,10 +39,6 @@ body {
 	@include media($xs) {
 		font: $fs-p3;
 	}
-}
-
-.ui-helper-hidden-accessible {
-	display: none;
 }
 
 input {

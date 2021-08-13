@@ -1,102 +1,122 @@
 <template>
-  <div
-    class="bael-slideout xs-border xs-text-6 md-text-5"
-    :class="{ isOpen: $store.state.menuIsActive  }"
-  >
-    <div class="bael-slideout-opener">
-      <div
-        @click="toggle"
-        class="hamburger hamburger--spin js-hamburger"
-        :class="{'is-active': $store.state.menuIsActive }"
-      >
-        <div class="hamburger-box">
-          <div class="hamburger-inner"></div>
-        </div>
-      </div>
-    </div>
-    <ul class="bael-slideout-menu list-unstyled">
-      <li class="bael-slideout-menu-item menu-logo">
-        <nuxt-link
-          v-if="info.siteicon  && info.showmenu"
-          style="color:#000"
-          class="text-black black-font site--name"
-          to="/"
-          exact
-        >
-          <img
-            style="width:64px;"
-            class="xs-block xs-fit xs-mb2"
-            :src="info.siteicon"
-            :alt="info.sitename"
-          />
-        </nuxt-link>
-      </li>
-      <li class="bael-slideout-menu-item--small">
-        <nuxt-link to="/" exact>Home</nuxt-link>
-      </li>
-      <li v-if="categories.length" class="bael-slideout-menu-item--small">
-        <nuxt-link to="/categories" exact>Categories</nuxt-link>
-      </li>
-      <li v-for="(p,i) in pages" :key="`pg-${i}`" class="bael-slideout-menu-item--small">
-        <nuxt-link :to="p.path">{{p.title}}</nuxt-link>
-      </li>
-      <li v-if="info.menu" class="xs-mt5 bael-slideout-menu-item heading-font">Links</li>
-      <li v-for="m in info.menu" :key="m.position" class="bael-slideout-menu-item--small">
-        <a :href="m.link">{{m.name}}</a>
-      </li>
-    </ul>
-  </div>
+	<div
+		class="bael-slideout xs-border xs-text-6 md-text-5"
+		:class="{ isOpen: $store.state.menuIsActive  }"
+	>
+		<div class="bael-slideout-opener">
+			<div
+				@click="toggle"
+				class="hamburger hamburger--spin js-hamburger"
+				:class="{'is-active': $store.state.menuIsActive }"
+			>
+				<div class="hamburger-box">
+					<div class="hamburger-inner"></div>
+				</div>
+			</div>
+		</div>
+		<ul class="bael-slideout-menu list-unstyled">
+			<li class="bael-slideout-menu-item menu-logo">
+				<nuxt-link
+					v-if="info.siteicon  && info.showmenu"
+					style="color:#000"
+					class="text-black black-font site--name"
+					to="/"
+					exact
+				>
+					<img
+						style="width:64px;"
+						class="xs-block xs-fit xs-mb2"
+						:src="info.siteicon"
+						:alt="info.sitename"
+					/>
+				</nuxt-link>
+			</li>
+			<li class="bael-slideout-menu-item--small">
+				<nuxt-link
+					to="/"
+					exact
+				>Home</nuxt-link>
+			</li>
+			<li
+				v-if="categories.length"
+				class="bael-slideout-menu-item--small"
+			>
+				<nuxt-link
+					to="/categories"
+					exact
+				>Categories</nuxt-link>
+			</li>
+			<li
+				v-for="(p,i) in pages"
+				:key="`pg-${i}`"
+				class="bael-slideout-menu-item--small"
+			>
+				<nuxt-link :to="p.path">{{p.title}}</nuxt-link>
+			</li>
+			<li
+				v-if="info.menu"
+				class="xs-mt5 bael-slideout-menu-item heading-font"
+			>Links</li>
+			<li
+				v-for="m in info.menu"
+				:key="m.position"
+				class="bael-slideout-menu-item--small"
+			>
+				<a :href="m.link">{{m.name}}</a>
+			</li>
+		</ul>
+	</div>
 </template>
 
   <script>
 export default {
-  fetchOnServer: true,
-  async fetch() {
-    const pages = await this.$content("page").fetch();
-    this.pages = pages;
-  },
-  data() {
-    return {
-      isOpen: false,
-      links: null,
-      pages: null,
-    };
-  },
-  computed: {
-    info() {
-      return this.$store.state.info;
-    },
-    categories() {
-      return this.$store.state.categories;
-    },
-  },
-  methods: {
-    open() {
-      this.isOpen = true;
-    },
-    close() {
-      this.isOpen = false;
-    },
-    toggle() {
-      // Look for .hamburger
-      this.$store.commit("toggleMenuState");
+	fetchOnServer: true,
+	async fetch() {
+		const pages = await this.$content("page").fetch();
+		this.pages = pages;
+	},
+	data() {
+		return {
+			isOpen: false,
+			links: null,
+			pages: null,
+		};
+	},
+	computed: {
+		info() {
+			return this.$store.state.info;
+		},
+		categories() {
+			return this.$store.state.categories;
+		},
+	},
+	methods: {
+		open() {
+			this.isOpen = true;
+		},
+		close() {
+			this.isOpen = false;
+		},
+		toggle() {
+			// Look for .hamburger
+			this.$store.commit("toggleMenuState");
 
-      var hamburger = document.querySelector(".hamburger");
-      // On click
+			var hamburger = document.querySelector(".hamburger");
+			// On click
 
-      // Toggle class "is-active"
+			// Toggle class "is-active"
 
-      if (this.isOpen) {
-        this.close();
-      } else {
-        this.open();
-      }
-    },
-  },
+			if (this.isOpen) {
+				this.close();
+			} else {
+				this.open();
+			}
+		},
+	},
 };
 </script>
   <style lang="scss">
-.heading-font {
+/* .heading-font { 
   text-transform: uppercase;
   font-weight: 800;
   border-top: 2px solid rgba(119, 119, 119, 0.4);
@@ -186,74 +206,74 @@ export default {
   transform: rotate(-90deg);
   transition: bottom 0.1s ease-out,
     transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
-}
+} */
 .bael-slideout {
-  position: fixed;
-  right: 0;
-  top: 0;
-  width: auto;
-  min-width: 180px;
-  height: 100vh;
-  z-index: 1000;
-  background-color: #fff;
-  transform: translate3D(100%, 0, 0);
-  transition: transform 0.6s;
+	position: fixed;
+	right: 0;
+	top: 0;
+	width: auto;
+	min-width: 180px;
+	height: 100vh;
+	z-index: 1000;
+	background-color: #fff;
+	transform: translate3D(100%, 0, 0);
+	transition: transform 0.6s;
 
-  &.isOpen {
-    transform: translate3D(0, 0, 0);
-    transition: transform 0.6s;
-  }
+	&.isOpen {
+		transform: translate3D(0, 0, 0);
+		transition: transform 0.6s;
+	}
 }
 
 .bael-slideout-opener {
-  position: absolute;
-  top: -4px;
-  right: 100%;
-  transform: scale(0.5);
-  margin-right: 0px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #000;
-  cursor: pointer;
+	position: absolute;
+	top: -4px;
+	right: 100%;
+	transform: scale(0.5);
+	margin-right: 0px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: #000;
+	cursor: pointer;
 
-  &:hover {
-    text-decoration: underline;
-  }
+	&:hover {
+		text-decoration: underline;
+	}
 }
 
 .bael-slideout-menu {
-  font-weight: 600;
-  transition: transform 1.6s ease(out-cubic);
-  .menu-logo {
-    padding: 0.5rem 0.3rem;
-  }
+	font-weight: 600;
+	transition: transform 1.6s ease(out-cubic);
+	.menu-logo {
+		padding: 0.5rem 0.3rem;
+	}
 }
 
 .bael-slideout-menu-item,
 .bael-slideout-menu-item--small {
-  text-transform: uppercase;
+	text-transform: uppercase;
 }
 
 .bael-slideout-menu-item--small {
-  font-weight: 800;
-  text-transform: uppercase;
+	font-weight: 800;
+	text-transform: uppercase;
 }
 
 .bael-slideout-menu-item--small a {
-  cursor: pointer;
-  border-top: 1px solid #666;
-  display: block;
-  padding: 0.5rem 0.3rem;
-  &:hover {
-    background: var(--hover-bg);
-  }
-  &:focus,
-  :active {
-    background: var(--active-bg);
-  }
+	cursor: pointer;
+	border-top: 1px solid #666;
+	display: block;
+	padding: 0.5rem 0.3rem;
+	&:hover {
+		background: var(--hover-bg);
+	}
+	&:focus,
+	:active {
+		background: var(--active-bg);
+	}
 }
 .bael-slideout-menu-item--small a:hover {
-  text-decoration: none;
+	text-decoration: none;
 }
 </style>

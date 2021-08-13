@@ -31,7 +31,7 @@ $breakpoints: (
 // Цвета на сайте
 
 $white: #fff;
-$black: #353535;
+$black: #262626;
 
 $green: #80b13d;
 $green-dark: #4c971d;
@@ -106,8 +106,8 @@ $grid-breakpoints: (
 $grid-columns: 12;
 $grid-gutter-width: 20px;
 
-$baseFontF: "Jost", sans-serif;
-$headlineFontF: "Jost", sans-serif;
+$baseFontF: "CoFo Sans", sans-serif;
+$headlineFontF: "CoFo Sans", sans-serif;
 
 $titleFF: $headlineFontF;
 
@@ -116,7 +116,7 @@ $baseLH: (25px / $baseFS);
 $baseFW: 500;
 $baseFSt: normal;
 $baseFF: $baseFontF;
-$baseFClr: $text-green-dark;
+$baseFClr: $black;
 $baseBg: $white;
 
 $family: $baseFF;
