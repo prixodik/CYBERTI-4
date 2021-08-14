@@ -142,7 +142,7 @@
 						</div>
 					</div>
 
-					<div
+					<!-- <div
 						class="panel__col col-4 col-xs-12"
 						v-show="showForm"
 					>
@@ -195,7 +195,7 @@
 						>
 							<p>{{emaildata.email}} has been added to our newsletter.</p>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</transition>
@@ -266,7 +266,7 @@ export default {
 		},
 	},
 	methods: {
-		async processForm() {
+		/* async processForm() {
 			try {
 				const sendgrid = await this.$axios.post(
 					`${process.env.API_URL}/.netlify/functions/app`,
@@ -277,7 +277,7 @@ export default {
 			} catch (e) {
 				console.log(e);
 			}
-		},
+		}, */
 		openForm() {
 			this.showForm = true;
 		},
