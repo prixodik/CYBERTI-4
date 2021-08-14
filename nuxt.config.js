@@ -102,9 +102,9 @@ module.exports = {
 			})
 		],
 		/** Uncomment this if you need to use the full Vue build */
-		// extend(config) {
-		//     config.resolve.alias['vue'] = 'vue/dist/vue.common'
-		// }
+		extend(config) {
+			config.resolve.alias['vue'] = 'vue/dist/vue.common'
+		}
 	},
 }
 
