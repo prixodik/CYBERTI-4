@@ -144,32 +144,42 @@
 
 					<div
 						class="panel__col col-4 col-xs-12"
-						v-if="showForm"
+						v-show="showForm"
 					>
-						<div class="panel__form">
+						<div
+							class="panel__form"
+							v-if="!sent"
+						>
 							<div class="panel__form-title">Заявка</div>
+
 							<form
-								action=""
+								@submit.prevent="processForm"
+								action="/.netlify/functions/app"
+								name="mailinglist"
 								class="panel__form-form"
 							>
 								<div class="panel__form-item">
 									<div class="panel__form-label">Имя</div>
 									<input
 										type="text"
+										name="fio"
 										class="form-control"
 									>
 								</div>
 								<div class="panel__form-item">
 									<div class="panel__form-label">Телефон</div>
 									<input
-										type="text"
+										type="phone"
+										name="phone"
 										class="form-control"
 									>
 								</div>
 								<div class="panel__form-item">
 									<div class="panel__form-label">E-mail</div>
 									<input
-										type="text"
+										type="email"
+										name="email"
+										v-model="emaildata.email"
 										class="form-control"
 									>
 								</div>
@@ -178,6 +188,12 @@
 										type="submit"
 									>Отправить</button></div>
 							</form>
+						</div>
+						<div
+							class="panel__send-result"
+							v-else
+						>
+							<p>{{emaildata.email}} has been added to our newsletter.</p>
 						</div>
 					</div>
 				</div>
@@ -230,6 +246,12 @@ export default {
 	data() {
 		return {
 			showForm: false,
+			emaildata: {
+				fio: null,
+				phone: null,
+				email: null,
+			},
+			sent: false,
 		};
 	},
 	computed: {
@@ -244,6 +266,18 @@ export default {
 		},
 	},
 	methods: {
+		async processForm() {
+			try {
+				const sendgrid = await this.$axios.post(
+					`${process.env.API_URL}/.netlify/functions/app`,
+					this.emaildata
+				);
+				console.log("Processed!");
+				this.sent = true;
+			} catch (e) {
+				console.log(e);
+			}
+		},
 		openForm() {
 			this.showForm = true;
 		},

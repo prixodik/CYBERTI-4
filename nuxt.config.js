@@ -45,7 +45,7 @@ module.exports = {
 		name: siteInfo.sitename,
 		short_name: siteInfo.sitename,
 		description: siteInfo.sitedescription,
-		lang: 'en'
+		lang: 'ru'
 	},
 	workbox: {
 		runtimeCaching: [
