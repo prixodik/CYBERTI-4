@@ -1,6 +1,7 @@
 [build]
   publish = "dist"
-  command = "npm run generate"
+  command = "yarn run generate && yarn run build:api"
+  functions = "./functions"
 [build.environment]
   NODE_VERSION = "12" 
   YARN_FLAGS = "--no-ignore-optional"
