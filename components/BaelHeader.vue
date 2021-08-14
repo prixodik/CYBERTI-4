@@ -5,7 +5,10 @@
 		:data-nav="`${pagetitle}`"
 		id="navbar"
 	>
-		<div class="panel__body">
+		<div
+			class="panel__body"
+			:class="{ active: $store.state.menuIsActive  }"
+		>
 			<hamburger />
 
 			<div class="panel__title"><span>{{pagetitle}}</span></div>
@@ -14,6 +17,7 @@
 				<div class="soc-list__item">
 					<a href="#">
 						<img
+							loading="lazy"
 							src="~/assets/svg/soc-1.svg"
 							alt=""
 						/>
@@ -22,6 +26,7 @@
 				<div class="soc-list__item">
 					<a href="#">
 						<img
+							loading="lazy"
 							src="~/assets/svg/soc-2.svg"
 							alt=""
 						/>
@@ -30,6 +35,7 @@
 				<div class="soc-list__item">
 					<a href="#">
 						<img
+							loading="lazy"
 							src="~/assets/svg/soc-3.svg"
 							alt=""
 						/>
@@ -38,6 +44,7 @@
 				<div class="soc-list__item">
 					<a href="#">
 						<img
+							loading="lazy"
 							src="~/assets/svg/soc-4.svg"
 							alt=""
 						/>
@@ -49,19 +56,24 @@
 				<a href="#">RU</a>
 			</div>
 		</div>
-		<div
-			class="panel__wrapper"
-			v-show="$store.state.menuIsActive"
+
+		<transition
+			name="panel-wrapper"
+			key="panel-wrapper"
 		>
-			<div class="panel__row row row--stretch">
-				<transition name="col-1">
-					<div class="panel__col col-6 col-xs-12">
+			<div
+				class="panel__wrapper"
+				v-show="$store.state.menuIsActive"
+			>
+				<div class="panel__row row row--stretch">
+
+					<div class="panel__col col-4 col-xs-12">
 						<div class="panel__buttons">
-							<nuxt-link
+							<a
 								class="btn btn--border"
-								to="/categories"
-								exact
-							>Отправить заявку</nuxt-link>
+								href="#"
+								@click="toggleForm()"
+							>Отправить заявку</a>
 							<a
 								href="#"
 								class="btn btn--border"
@@ -70,7 +82,7 @@
 
 						<div class="panel__menu">
 							<div class="panel__menu-item">
-								<nuxt-link to="/">
+								<nuxt-link to="/services">
 									<span class="panel__menu-title">Услуги</span>
 									<span class="panel__menu-desc">что мы можем</span>
 								</nuxt-link>
@@ -101,9 +113,8 @@
 							</div>
 						</div>
 					</div>
-				</transition>
-				<transition name="col-2">
-					<div class="panel__col col-6 col-xs-12">
+
+					<div class="panel__col col-4 col-xs-12">
 						<div class="panel__contacts row">
 							<div class="panel__contacts-item col-6 col-xs-12">
 								<div class="panel__contacts-label">Написать</div>
@@ -130,9 +141,48 @@
 							</div>
 						</div>
 					</div>
-				</transition>
+
+					<div
+						class="panel__col col-4 col-xs-12"
+						v-if="showForm"
+					>
+						<div class="panel__form">
+							<div class="panel__form-title">Заявка</div>
+							<form
+								action=""
+								class="panel__form-form"
+							>
+								<div class="panel__form-item">
+									<div class="panel__form-label">Имя</div>
+									<input
+										type="text"
+										class="form-control"
+									>
+								</div>
+								<div class="panel__form-item">
+									<div class="panel__form-label">Телефон</div>
+									<input
+										type="text"
+										class="form-control"
+									>
+								</div>
+								<div class="panel__form-item">
+									<div class="panel__form-label">E-mail</div>
+									<input
+										type="text"
+										class="form-control"
+									>
+								</div>
+								<div class="panel__form-buttons"><button
+										class="btn btn--border"
+										type="submit"
+									>Отправить</button></div>
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>
+		</transition>
 
 		<!-- <div class="r xs-border-bottom">
 			<div class="c-4 xs-text-left xs-p2 sm-border-right">
@@ -179,7 +229,7 @@ export default {
 	components: { Hamburger },
 	data() {
 		return {
-			//isOpen: false,
+			showForm: false,
 		};
 	},
 	computed: {
@@ -194,37 +244,32 @@ export default {
 		},
 	},
 	methods: {
-		/* open() {
-			this.isOpen = true;
+		openForm() {
+			this.showForm = true;
 		},
-		close() {
-			this.isOpen = false;
+		hideForm() {
+			this.showForm = false;
 		},
-		toggle() {
+		toggleForm() {
 			// Look for .hamburger
-			this.$store.commit("toggleMenuState");
+			//this.$store.commit("toggleFormState");
 
-			var hamburger = document.querySelector(".hamburger");
-			// On click
-
-			// Toggle class "is-active"
-
-			if (this.isOpen) {
-				this.close();
+			if (this.showForm) {
+				this.hideForm();
 			} else {
-				this.open();
+				this.openForm();
 			}
-		}, */
+		},
 	},
 };
 </script>
 
-<style lang="scss">
-@import "~/assets/scss/styles.scss";
+<style lang="scss" scoped>
+@import "~/assets/scss/helpers/variables.scss";
+@import "~/assets/scss/helpers/mixin.scss";
 
 .panel {
 	position: fixed;
-	background: $white;
 	top: 0;
 	bottom: 0;
 	left: 0;
@@ -234,15 +279,23 @@ export default {
 		position: relative;
 		z-index: 3;
 		height: 100%;
-		background: $white;
+		//background: $white;
 		border-right: 1px rgba($black, 0.5) solid;
 		@include flex(space-between, center, center, nowrap, column);
 		padding: 40px 30px 26px;
+
+		&.active {
+			background: $white;
+
+			.panel__soc {
+				opacity: 1;
+			}
+		}
 	}
 
 	&__title {
 		text-transform: uppercase;
-		color: $black;
+		color: inherit;
 		flex: 1 1 auto;
 		font: bold 24px/1 $baseFF;
 		@include flex(center, center, center, nowrap);
@@ -254,14 +307,16 @@ export default {
 		}
 	}
 	&__soc {
+		opacity: 0;
 	}
 	&__lang {
 		margin-top: 52px;
-		color: $black;
+		color: inherit;
 		font: bold 24px/1 $baseFF;
 
 		a {
 			text-decoration: none;
+			color: inherit;
 		}
 	}
 
@@ -272,20 +327,82 @@ export default {
 		bottom: 0;
 		z-index: 2;
 		background: $white;
-		width: 100vw;
-		max-width: 1200px;
+		width: calc(100vw - 100px);
+		//max-width: 1200px;
 		//@include time();
+		//transition: all 0.4s ease;
 		opacity: 1;
-		//pointer-events: none;
+		pointer-events: auto;
 
-		&.isOpen,
+		/* &.isOpen,
 		&.is-open {
+			.panel__col {
+				transform: translateX(0);
+			}
+		} */
+
+		&.panel-wrapper-enter {
+			//transition: all 0.4s ease;
+			left: 100%;
+			opacity: 1;
+			pointer-events: none;
+
+			.panel__col {
+				transform: translateX(-100%);
+				transition: all 0.7s ease;
+
+				&:nth-of-type(2) {
+					transition-delay: 0.8s;
+					transform: translateX(-200%);
+				}
+			}
+		}
+		&.panel-wrapper-enter-to {
 			left: 100%;
 			opacity: 1;
 			pointer-events: auto;
 
 			.panel__col {
 				transform: translateX(0);
+
+				&:nth-of-type(2) {
+					transform: translateX(0);
+				}
+			}
+		}
+
+		// ! **** LEAVE *****
+		&.panel-wrapper-leave {
+			left: 100%;
+			opacity: 1;
+			pointer-events: auto;
+
+			.panel__col {
+				transform: translateX(0);
+				transition: all 0.4s ease;
+				/* 
+				&:nth-of-type(1) {
+					transition-delay: 4s !important;
+				}
+				&:nth-of-type(2) {
+					transition-delay: 0 !important;
+				} */
+			}
+		}
+		&.panel-wrapper-leave-to {
+			left: 100%;
+			pointer-events: none;
+			transition: all 0.4s ease;
+
+			.panel__col {
+				&:nth-of-type(1) {
+					transform: translateX(-100%);
+					transition-delay: 0.2s;
+				}
+				&:nth-of-type(2) {
+					transform: translateX(-200%);
+					transition-delay: 0s;
+				}
 			}
 		}
 	}
@@ -303,14 +420,25 @@ export default {
 	}
 	&__col {
 		padding: 60px 90px;
-		border-left: 1px rgba($black, 0.5) solid;
+		border-right: 1px rgba($black, 0.5) solid;
 		@include flex(0, stretch, stretch, nowrap, column);
-		transform: translateX(-50%);
-		@include time();
+		transition: all 0.7s ease;
+		background: $white;
+		position: relative;
+		z-index: 1;
 
-		&:first-child {
-			border-left: 0;
+		&:last-child {
+			border-right: 0;
+			z-index: 2;
 		}
+
+		/* &.col-2-enter {
+			transition: 2s;
+			transition-delay: 2s;
+		}
+		&.col-2-enter-to {
+			transform: translateX(0);
+		} */
 	}
 
 	&__menu {
@@ -363,6 +491,28 @@ export default {
 					margin-bottom: 0;
 				}
 			}
+		}
+	}
+
+	&__form {
+		@include flex(space-between, stretch, stretch, nowrap, column);
+		&-title {
+			font: 900 78px/1 $baseFF;
+			margin-bottom: 50px;
+		}
+		&-form {
+			flex: 1 1 auto;
+		}
+		&-item {
+			margin-bottom: 50px;
+		}
+		&-label {
+			margin-bottom: 8px;
+			font: 900 20px/1 $baseFF;
+		}
+		&-buttons {
+			@include flex(center);
+			margin-top: 50px;
 		}
 	}
 }

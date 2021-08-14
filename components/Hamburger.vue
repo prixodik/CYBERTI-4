@@ -45,7 +45,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~/assets/scss/styles.scss";
+@import "~/assets/scss/helpers/variables.scss";
+@import "~/assets/scss/helpers/mixin.scss";
 
 .hamburger {
 	display: block;
@@ -61,9 +62,13 @@ export default {
 	margin: 0;
 	overflow: visible;
 }
-.hamburger:hover {
-	opacity: 0.7;
-}
+/* .hamburger:hover {
+	.hamburger-inner,
+	.hamburger-inner::before,
+	.hamburger-inner::after {
+		background: $blue;
+	}
+} */
 
 .hamburger-box {
 	width: 40px;
